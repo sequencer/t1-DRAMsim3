@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <string>
+#include <memory>
 
 #include "configuration.h"
 #include "dram_system.h"
@@ -17,6 +18,7 @@ class MemorySystem {
                  std::function<void(uint64_t)> read_callback,
                  std::function<void(uint64_t)> write_callback);
     ~MemorySystem();
+
     void ClockTick();
     void RegisterCallbacks(std::function<void(uint64_t)> read_callback,
                            std::function<void(uint64_t)> write_callback);
@@ -31,11 +33,8 @@ class MemorySystem {
     bool AddTransaction(uint64_t hex_addr, bool is_write);
 
    private:
-    // These have to be pointers because Gem5 will try to push this object
-    // into container which will invoke a copy constructor, using pointers
-    // here is safe
-    Config *config_;
-    BaseDRAMSystem *dram_system_;
+    std::unique_ptr<Config> config_;
+    std::unique_ptr<BaseDRAMSystem> dram_system_;
 };
 
 MemorySystem* GetMemorySystem(const std::string &config_file, const std::string &output_dir,
