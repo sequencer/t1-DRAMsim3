@@ -8,18 +8,15 @@ MemorySystem::MemorySystem(const std::string &config_file,
     : config_(new Config(config_file, output_dir)) {
     // TODO: ideal memory type?
     if (config_->IsHMC()) {
-        dram_system_ = new HMCMemorySystem(*config_, output_dir, read_callback,
-                                           write_callback);
+        dram_system_.reset(new HMCMemorySystem(*config_, output_dir, read_callback,
+                                           write_callback));
     } else {
-        dram_system_ = new JedecDRAMSystem(*config_, output_dir, read_callback,
-                                           write_callback);
+        dram_system_.reset(new JedecDRAMSystem(*config_, output_dir, read_callback,
+                                           write_callback));
     }
 }
 
-MemorySystem::~MemorySystem() {
-    delete (dram_system_);
-    delete (config_);
-}
+MemorySystem::~MemorySystem() { }
 
 void MemorySystem::ClockTick() { dram_system_->ClockTick(); }
 

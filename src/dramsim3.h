@@ -1,5 +1,5 @@
-#ifndef __MEMORY_SYSTEM__H
-#define __MEMORY_SYSTEM__H
+#ifndef __DRAMSIM3__H
+#define __DRAMSIM3__H
 
 #include <functional>
 #include <string>
