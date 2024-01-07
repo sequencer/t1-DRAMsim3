@@ -117,3 +117,6 @@ add_custom_command(
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     DEPENDS dramsim3test dramsim3
 )
+
+set_target_properties(dramsim3 PROPERTIES PUBLIC_HEADER src/dramsim3.h)
+install(TARGETS dramsim3 RUNTIME PUBLIC_HEADER)
