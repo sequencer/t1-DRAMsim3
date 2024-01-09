@@ -16,6 +16,8 @@ MemorySystem::MemorySystem(const std::string &config_file,
     }
 }
 
+MemorySystem::MemorySystem(MemorySystem &&) = default;
+
 MemorySystem::~MemorySystem() { }
 
 void MemorySystem::ClockTick() { dram_system_->ClockTick(); }
