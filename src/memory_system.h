@@ -17,6 +17,7 @@ class MemorySystem {
     MemorySystem(const std::string &config_file, const std::string &output_dir,
                  std::function<void(uint64_t)> read_callback,
                  std::function<void(uint64_t)> write_callback);
+    MemorySystem(MemorySystem &&) = default;
     ~MemorySystem();
 
     void ClockTick();
