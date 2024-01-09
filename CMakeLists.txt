@@ -76,7 +76,7 @@ if (ADDR_TRACE)
 endif (ADDR_TRACE)
 
 
-target_include_directories(dramsim3 INTERFACE src)
+target_include_directories(dramsim3 INTERFACE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src> $<INSTALL_INTERFACE:include>)
 target_compile_options(dramsim3 PRIVATE -Wall)
 target_link_libraries(dramsim3 PRIVATE inih format)
 set_target_properties(dramsim3 PROPERTIES
@@ -119,4 +119,13 @@ add_custom_command(
 )
 
 set_target_properties(dramsim3 PROPERTIES PUBLIC_HEADER src/dramsim3.h)
-install(TARGETS dramsim3 RUNTIME PUBLIC_HEADER)
+install(TARGETS dramsim3 EXPORT dramsim3Config
+  RUNTIME
+  PUBLIC_HEADER
+)
+export(TARGETS dramsim3 NAMESPACE dramsim3:: FILE "${CMAKE_CURRENT_BINARY_DIR}/dramsim3.cmake")
+install(EXPORT
+        dramsim3Config
+        DESTINATION "lib/cmake/dramsim3"
+        NAMESPACE dramsim3::
+)
